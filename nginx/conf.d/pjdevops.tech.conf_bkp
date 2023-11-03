@@ -1,0 +1,26 @@
+server {
+    listen 80;
+    server_name pjdevops.tech;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name pjdevops.tech;
+
+    ssl_certificate /etc/letsencrypt/live/pjdevops.tech/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pjdevops.tech/privkey.pem;
+
+    # Other SSL settings (optional)
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:SSL:10m;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+
+    # Additional configuration goes here
+}
+
